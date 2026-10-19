@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+
+from flask import Flask, render_template, request, redirect, url_for
 
 from database import conectar
 
@@ -7,9 +8,17 @@ app = Flask(__name__)
 @app.route('/')
 def inicio():
 
-    prompt = conectar()
+    conexion = conectar()
+    
+    cursor = conexion.cursor()
 
-    return render_template ('index.html', prompt = prompt) 
+    cursor.execute("SELECT prompt FROM card")
+
+    prompts = cursor.fetchall()
+
+    conexion.close()
+
+    return render_template ('index.html', prompts = prompts) 
 
 @app.route('/guardar_prompt', methods = ['POST'])
 def guardar_prompt():
@@ -24,7 +33,7 @@ def guardar_prompt():
     cursor.close()
     conexion.close()
 
-    return render_template('index.html')
+    return redirect(url_for('inicio'))
 
 if __name__ == '__main__':
     app.run(debug=True)

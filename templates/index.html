@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <title>Document</title>
 </head>
 
@@ -20,7 +20,10 @@
     <h2 class="subtitulo">Tus prompts se mostraran aqui.</h2>
     <div class="prompt_card">
         <ul>
+            {%for prompt in prompts %}
+            <li>{{prompt[0]}}</li>
 
+            {% endfor %}
         </ul>
 
     </div>
