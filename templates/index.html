@@ -9,12 +9,16 @@
 </head>
 
 <body>
-    <form method="POST" action="{{ url_for('guardar_prompt')}}">
+    <header>
         <h1 class="titulo">Administra tus prompts aquí</h1>
+    </header>
+    <form method="POST" action="{{ url_for('guardar_prompt')}}">
         <div class="contenedor_prompt">
             <label for="prompt">Escribe tu prompt</label>
             <textarea name="prompt" placeholder="Hazme una app con..." required></textarea>
-            <button type="submit">Guardar</button>
+            <div class="boton">
+                <button type="submit">Guardar</button>
+            </div>
         </div>
     </form>
     <h2 class="subtitulo">Tus prompts se mostraran aqui.</h2>
