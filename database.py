@@ -1,18 +1,24 @@
-import mysql.connector
+import sqlite3
 
 def conectar():
-    conexion = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        password = "",
-        database = "prompts_bd"
-    )
+    conexion = sqlite3.connect("prompts_db.db")
+    cursor = conexion.cursor()
 
-    if conexion.is_connected():
-        print("Conexion exitosa")
-    else:
-        print("Conexion fallida")
-
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS card (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            prompt TEXT NOT NULL
+        )
+    """)
+    conexion.commit()
+    
     return conexion
 
-conectar()
+# Prueba de conexión al ejecutar este archivo
+if __name__ == '__main__':
+    try:
+        con = conectar()
+        print("Conexión exitosa a SQLite y tabla 'card' verificada.")
+        con.close()
+    except Exception as e:
+        print(f"Error en la base de datos: {e}")

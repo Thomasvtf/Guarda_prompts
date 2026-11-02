@@ -27,7 +27,7 @@ def guardar_prompt():
     conexion = conectar()
     cursor = conexion.cursor()
 
-    cursor.execute ("INSERT INTO card (prompt) VALUES (%s)", (prompt,))
+    cursor.execute ("INSERT INTO card (prompt) VALUES (?)", (prompt,))
 
     conexion.commit()
     cursor.close()
