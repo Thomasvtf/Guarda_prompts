@@ -1,3 +1,4 @@
+import os
 
 from flask import Flask, render_template, request, redirect, url_for
 
@@ -36,4 +37,6 @@ def guardar_prompt():
     return redirect(url_for('inicio'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+# Lee el puerto asignado por Render o usa el 5000 por defecto localmente
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
